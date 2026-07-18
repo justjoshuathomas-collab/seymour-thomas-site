@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026 Open Championship — Statistical Favorites — Seymour Thomas</title>
+<link rel="icon" href="assets/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="page">
+  <div class="card">
+
+    <header class="topbar">
+      <a href="index.html" class="logo-link" aria-label="Back to homepage">
+        <img src="assets/logo.png" alt="Seymour Thomas logo" class="logo-img">
+      </a>
+      <nav class="nav">
+        <a href="#" class="nav-link" id="navResume">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="6" y="3" width="12" height="18" rx="2"/><path d="M9 3h6v3H9z"/><path d="M9 11h6M9 15h4"/></svg>
+          <span>Resume</span>
+        </a>
+        <a href="index.html#works" class="nav-link">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 12a4 4 0 0 1 4-4h4a4 4 0 0 1 0 8h-1"/><path d="M16 12a4 4 0 0 1-4 4H8a4 4 0 0 1 0-8h1"/></svg>
+          <span>Works</span>
+        </a>
+        <a href="index.html#contact" class="nav-link">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6.6 10.8a15.9 15.9 0 0 0 6.6 6.6l2.2-2.2a1.2 1.2 0 0 1 1.2-.3c1.2.4 2.5.6 3.8.6a1.2 1.2 0 0 1 1.2 1.2V20a1.2 1.2 0 0 1-1.2 1.2C10.6 21.2 2.8 13.4 2.8 3.8A1.2 1.2 0 0 1 4 2.6h3.3a1.2 1.2 0 0 1 1.2 1.2c0 1.3.2 2.6.6 3.8a1.2 1.2 0 0 1-.3 1.2z"/></svg>
+          <span>Contact</span>
+        </a>
+      </nav>
+    </header>
+
+    <main>
+
+      <!-- MEMO HERO -->
+      <section class="section memo-hero" id="memo-top">
+        <div class="cloud-particles" aria-hidden="true">
+          <img class="cloud-particle cp-1" src="assets/dotted-cloud.png" alt="">
+          <img class="cloud-particle cp-2" src="assets/dotted-cloud.png" alt="">
+          <img class="cloud-particle cp-3" src="assets/dotted-cloud.png" alt="">
+          <img class="cloud-particle cp-4" src="assets/dotted-cloud.png" alt="">
+          <img class="cloud-particle cp-5" src="assets/dotted-cloud.png" alt="">
+          <img class="cloud-particle cp-6" src="assets/dotted-cloud.png" alt="">
+          <img class="cloud-particle cp-7" src="assets/dotted-cloud.png" alt="">
+        </div>
+
+        <p class="breadcrumb reveal">
+          <a href="index.html#works">Works</a><span class="sep">→</span><span class="current">2026 Open Championship — Statistical Favorites</span>
+        </p>
+
+        <p class="dot-marker reveal">Royal Birkdale Golf Club · The Open Championship · July 16–19, 2026</p>
+
+        <h1 class="memo-title reveal"><span class="word" style="animation-delay:0.00s">2026</span> <span class="word" style="animation-delay:0.05s">Open</span> <span class="word" style="animation-delay:0.10s">Championship:</span> <span class="word" style="animation-delay:0.15s">Statistical</span> <span class="word" style="animation-delay:0.20s">Favorites</span></h1>
+
+        <p class="memo-byline reveal"><span class="word" style="animation-delay:0.26s">Seymour</span> <span class="word" style="animation-delay:0.31s">Thomas</span></p>
+
+        <a class="memo-download reveal" href="assets/memo/open-championship-memo-download.zip" download>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3v13M7 11l5 5 5-5M5 21h14"/></svg>
+          Download PDF, Memo &amp; SQL
+        </a>
+      </section>
+
+      <hr class="section-divider reveal">
+
+      <!-- I. EXECUTIVE SUMMARY -->
+      <section class="section" id="exec-summary">
+        <h2 class="memo-section-heading reveal">I. Executive Summary</h2>
+        <div class="memo-body reveal">
+          <p>The Open Championship returns to Royal Birkdale Golf Club July 16–19, 2026, for the first time since 2017. This analysis uses a custom-built SQLite relational database — populated with DataGolf skill rankings, 2026 season Strokes Gained data across the PGA Tour, DP World Tour, and LIV Golf, and actual Royal Birkdale results from the 2008 and 2017 Opens — to answer one question: who is statistically most likely to win?</p>
+          <p>The model combines three factors into a single composite score: a player's <strong>skill rank</strong> (DataGolf's own predictive rating), their <strong>current-season form</strong> (Strokes Gained: Total, Bayesian-shrunk to correct for small sample sizes), and a <strong>Royal Birkdale course-history bonus</strong> built from real finishing positions the last two times The Open visited this course.</p>
+          <p>The headline finding: only one player in the 156-man field checks all three boxes — elite skill rank, red-hot current form over a full season, and a proven result at Royal Birkdale. That player is Rory McIlroy. Behind him, Jon Rahm and Tyrrell Hatton round out the top three on current form alone, and one course-history specialist — Alex Noren — stands out as a longshot worth watching.</p>
+        </div>
+      </section>
+
+      <hr class="section-divider reveal">
+
+      <!-- II. COURSE PROFILE -->
+      <section class="section" id="course-profile">
+        <h2 class="memo-section-heading reveal">II. Royal Birkdale: What the Course Actually Rewards</h2>
+        <div class="memo-body reveal">
+          <p>Pulled from DataGolf's Course Insights for the two most recent Opens held at Royal Birkdale — nine seasons apart, but telling a consistent story.</p>
+        </div>
+        <div class="memo-table-wrap reveal">
+          <table class="memo-table">
+            <thead><tr><th>Metric</th><th>2008</th><th>2017</th></tr></thead>
+            <tbody>
+              <tr class="row-lavender"><td>Scoring average</td><td>74.89 (+4.89)</td><td>71.28 (+1.28)</td></tr>
+              <tr><td>Score std. deviation</td><td>3.18 (high variance)</td><td>2.90 (typical PGA Tour variance)</td></tr>
+              <tr class="row-yellow"><td>Skill separation (slope vs. 1.0 = normal tour)</td><td>0.60</td><td>0.72</td></tr>
+              <tr class="row-green"><td>Player type favoured</td><td>Strongly favoured accurate drivers</td><td>Favoured accurate drivers</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="memo-callout reveal"><strong>Key finding:</strong> Royal Birkdale rewards accuracy off the tee over raw distance, and skill separates less than usual here (slope 0.60–0.72 vs. 1.0) — meaning the best players in the world beat the field by <em>less</em> than they would elsewhere. Variance, luck, and weather play an outsized role. This doesn't override the skill/form model — it tempers it. A pure bomber with no Birkdale pedigree should be discounted slightly; a proven accurate ball-striker with course history should get a bump.</div>
+      </section>
+
+      <hr class="section-divider reveal">
+
+      <!-- III. COURSE HISTORY -->
+      <section class="section" id="course-history">
+        <h2 class="memo-section-heading reveal">III. Adding Course History to the Model</h2>
+        <div class="memo-body reveal">
+          <p>Cross-referencing the 2008 and 2017 Open leaderboards against the current 156-player field turned up 10 players still competing who have real Royal Birkdale results on record.</p>
+        </div>
+        <div class="memo-table-wrap reveal">
+          <table class="memo-table">
+            <thead><tr><th>Player</th><th>Best Birkdale Finish</th><th>Years</th></tr></thead>
+            <tbody>
+              <tr class="row-yellow"><td>Padraig Harrington</td><td><strong>Winner</strong>, 2008</td><td>2008</td></tr>
+              <tr class="row-green"><td>Henrik Stenson</td><td>T3 (2008), T11 (2017)</td><td>2008, 2017</td></tr>
+              <tr class="row-green"><td>Alex Noren</td><td>T6 (2017), T19 (2008)</td><td>2008, 2017</td></tr>
+              <tr class="row-lavender"><td>Rory McIlroy</td><td>T4 (2017)</td><td>2017</td></tr>
+              <tr><td>Brooks Koepka</td><td>T6 (2017)</td><td>2017</td></tr>
+              <tr><td>Matthew Southgate</td><td>T6 (2017)</td><td>2017</td></tr>
+              <tr><td>Hideki Matsuyama</td><td>T14 (2017)</td><td>2017</td></tr>
+              <tr><td>Xander Schauffele</td><td>T20 (2017)</td><td>2017</td></tr>
+              <tr><td>Adam Scott</td><td>T16 (2008), T22 (2017)</td><td>2008, 2017</td></tr>
+              <tr><td>Rickie Fowler</td><td>T22 (2017)</td><td>2017</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <hr class="section-divider reveal">
+
+      <!-- IV. THE MODEL -->
+      <section class="section" id="the-model">
+        <h2 class="memo-section-heading reveal">IV. The Model</h2>
+        <div class="memo-body reveal">
+          <p>Data was loaded into SQLite across five tables: the 156-player Open field (with each player's DataGolf rank, OWGR, and tour rank), three Strokes Gained leaderboards (PGA Tour, DP World Tour, LIV Golf), and the Royal Birkdale course-history table above. Players were matched across tables by surname, with first-initial disambiguation for common names (Fitzpatrick, Kim, Hojgaard, Smith, Scott, Noren).</p>
+          <p>For each player, three factors were computed: a <strong>skill score</strong> derived from <code>dg_rank</code> (DataGolf's own predictive rank, which already blends long-term skill with recent form), a <strong>form score</strong> — current-season Strokes Gained: Total, normalized per round — and a <strong>course-history score</strong>, points awarded for Royal Birkdale finish (Win = 10, top-3 = 8, top-6 = 6, top-15 = 2–4, top-25 = 1) summed across 2008 and 2017. Because a hot stretch over just 18 rounds is far noisier than one over 60+, Bayesian shrinkage was applied to the Strokes Gained figures so a short hot streak can't outrank a full season of proven form.</p>
+        </div>
+        <div class="memo-table-wrap reveal">
+          <table class="memo-table">
+            <thead><tr><th colspan="2">Simplified core of the ranking query</th></tr></thead>
+            <tbody>
+              <tr><td colspan="2" style="font-family:monospace; white-space:pre-wrap; font-size:0.8rem;">SELECT f.player_name, f.dg_rank, f.owgr_rank,
+       COALESCE(p.total/p.rnds, d.total/d.rnds, l.total/l.rnds) AS sg_per_round
+FROM field f
+LEFT JOIN pga_stats  p ON f.last_name = p.surname
+LEFT JOIN dpwt_stats d ON f.last_name = d.surname
+LEFT JOIN liv_stats  l ON f.last_name = l.surname
+ORDER BY composite_score DESC;</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="memo-callout reveal"><strong>Final composite:</strong> 70% skill rank + 30% shrunk current-season form, blended 88/12 with the Royal Birkdale course-history score. The 12% weight is deliberately modest — two tournaments is a small history sample, so it acts as a tiebreaker/booster rather than a dominant factor.</div>
+      </section>
+
+      <hr class="section-divider reveal">
+
+      <!-- V. TOP 15 CONTENDERS -->
+      <section class="section" id="top-contenders">
+        <h2 class="memo-section-heading reveal">V. Top 15 Contenders (Course-History Adjusted)</h2>
+        <div class="memo-body reveal">
+          <p>The direct output of the composite-score ranking query, expanded with additional PGA Tour and DP World Tour stat coverage.</p>
+        </div>
+        <div class="memo-table-wrap reveal">
+          <table class="memo-table">
+            <thead><tr><th>Rank</th><th>Player</th><th>DG Rank</th><th>Tour (SG/rd)</th><th>Birkdale History</th><th>Note</th></tr></thead>
+            <tbody>
+              <tr class="row-yellow"><td>1</td><td><strong>Rory McIlroy</strong></td><td>2</td><td>PGA (+0.067)</td><td>T4, 2017</td><td>Elite skill + hottest full-season form + real Birkdale pedigree</td></tr>
+              <tr class="row-green"><td>2</td><td>Jon Rahm</td><td>5</td><td>LIV (+0.067)</td><td>none</td><td>Matches McIlroy's per-round form over a full 36-round season</td></tr>
+              <tr class="row-green"><td>3</td><td>Tyrrell Hatton</td><td>23</td><td>DPWT (+0.104)</td><td>none</td><td>⚠️ Only 18 rounds of data — highest raw SG/round, but small sample</td></tr>
+              <tr class="row-pink"><td>4</td><td>Scottie Scheffler</td><td>1</td><td>PGA (+0.049)</td><td>none</td><td>#1 skill rank, but no Birkdale history and SG pace trails McIlroy/Rahm</td></tr>
+              <tr><td>5</td><td>Collin Morikawa</td><td>8</td><td>PGA (+0.043)</td><td>none</td><td></td></tr>
+              <tr><td>6</td><td>Alex Fitzpatrick</td><td>28</td><td>PGA (+0.060)</td><td>none</td><td>Elite current form</td></tr>
+              <tr><td>7</td><td>Matt Fitzpatrick</td><td>3</td><td>PGA (+0.033)</td><td>none</td><td></td></tr>
+              <tr><td>8</td><td>Tommy Fleetwood</td><td>4</td><td>PGA (+0.033)</td><td>none</td><td>Home-soil sentimental pick, no Birkdale Open history on record though</td></tr>
+              <tr><td>9</td><td>Cameron Young</td><td>9</td><td>PGA (+0.035)</td><td>none</td><td></td></tr>
+              <tr class="row-lavender"><td>10</td><td><strong>Xander Schauffele</strong></td><td>15</td><td>PGA (+0.029)</td><td>T20, 2017</td><td>Moves up on Birkdale pedigree</td></tr>
+              <tr><td>11</td><td>Sam Burns</td><td>6</td><td>PGA (+0.030)</td><td>none</td><td></td></tr>
+              <tr><td>12</td><td>Russell Henley</td><td>11</td><td>PGA (+0.030)</td><td>none</td><td></td></tr>
+              <tr><td>13</td><td>Ludvig Åberg</td><td>13</td><td>PGA (+0.029)</td><td>none</td><td></td></tr>
+              <tr><td>14</td><td>Wyndham Clark</td><td>7</td><td>PGA (+0.026)</td><td>none</td><td></td></tr>
+              <tr><td>15</td><td>Bryson DeChambeau</td><td>24</td><td>LIV (+0.039)</td><td>none</td><td></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="memo-body reveal">
+          <p><strong>Full ranking (all 156 players) and raw SQL tables are available in the download above.</strong></p>
+        </div>
+      </section>
+
+      <hr class="section-divider reveal">
+
+      <!-- VI. THREE MOST LIKELY WINNERS -->
+      <section class="section" id="favorites">
+        <h2 class="memo-section-heading reveal">VI. Three Most Likely Winners</h2>
+
+        <div class="recommendation reveal">
+          <h3>1. Rory McIlroy</h3>
+          <figure>
+            <img src="assets/players/rory-mcilroy.jpg" alt="Rory McIlroy walking the course at The Open Championship">
+            <figcaption>Rory McIlroy · Photograph: Charlie Crowhurst/R&amp;A/Getty Images</figcaption>
+          </figure>
+          <div class="memo-body">
+            <p>Tops every layer of the model: elite skill rank (#2), the hottest full-season Strokes Gained pace in the field (38 rounds, not a hot streak), <em>and</em> real Royal Birkdale pedigree (T4 in 2017). No one else in the 156-player field checks all three boxes.</p>
+          </div>
+        </div>
+
+        <div class="recommendation reveal">
+          <h3>2. Jon Rahm</h3>
+          <figure>
+            <img src="assets/players/jon-rahm.jpg" alt="Jon Rahm holding up his golf ball on the green">
+            <figcaption>Jon Rahm · Photo by Manuel Velasquez/Getty Images</figcaption>
+          </figure>
+          <div class="memo-body">
+            <p>Statistically even with McIlroy on SG/round, sustained across a full 36-round LIV season — this isn't a short-sample fluke. No recorded Birkdale history, so he's leaning entirely on current form and skill rank (#5), and it's enough to hold the #2 spot on its own.</p>
+          </div>
+        </div>
+
+        <div class="recommendation reveal">
+          <h3>3. Tyrrell Hatton</h3>
+          <figure>
+            <img src="assets/players/tyrrell-hatton.jpg" alt="Tyrrell Hatton on the practice range at The Open">
+            <figcaption>Tyrrell Hatton · Photo by Kevin C. Cox/Getty Images</figcaption>
+          </figure>
+          <div class="memo-body">
+            <p>The highest raw SG/round figure in the entire field. The honest caveat stands — it's built on only 18 DP World Tour rounds, and Bayesian shrinkage pulled his score down accordingly — but even after that correction he's still #3. Worth taking seriously, not just as a value bet.</p>
+          </div>
+        </div>
+      </section>
+
+      <hr class="section-divider reveal">
+
+      <!-- VII. SURPRISE PICK -->
+      <section class="section" id="surprise-pick">
+        <h2 class="memo-section-heading reveal">VII. Surprise Pick</h2>
+
+        <div class="recommendation reveal">
+          <h3>Alex Noren — The Course-History Longshot</h3>
+          <figure>
+            <img src="assets/players/alex-noren.jpg" alt="Alex Noren following through on his golf swing">
+            <figcaption>Alex Noren · (David Cannon/Getty Images)</figcaption>
+          </figure>
+          <div class="memo-body">
+            <p>Ranked 21st overall — well outside the "favorite" tier — but he's the strongest Royal Birkdale course-history match of anyone in the field who isn't already a top-3 pick: T6 in 2017 and T19 in 2008, the only player besides Stenson and Scott with a real result in both editions. His current DataGolf rank (45th) and season form are solid-but-unspectacular, which is exactly why the model buries him — but "accurate, experienced ball-striker with two good finishes at a course that specifically rewards accuracy" is precisely the profile Royal Birkdale has rewarded twice now.</p>
+          </div>
+        </div>
+
+        <div class="memo-body reveal">
+          <p class="memo-aside"><strong>Note on Scheffler:</strong> The world's #1-ranked player sits 4th because he has no Royal Birkdale Open history in the data, and his 2026 SG pace — while strong across 58 rounds — hasn't spiked the way McIlroy's or Rahm's has. Given the course's history of favouring accurate drivers and compressing skill separation, this is a course where even an all-time great gets less of an automatic edge than usual.</p>
+        </div>
+      </section>
+
+      <hr class="section-divider reveal">
+
+      <!-- VIII. CONCLUSION -->
+      <section class="section" id="conclusion">
+        <h2 class="memo-section-heading reveal">VIII. Conclusion &amp; Predicted Finish Order</h2>
+        <div class="memo-body reveal">
+          <p>Royal Birkdale's history says this is not a course where the favorite dominates — it's a course where accuracy, experience, and hot current form matter more than star power alone. Four names to watch:</p>
+        </div>
+        <table class="conclusion-table reveal">
+          <tbody>
+            <tr><td>1</td><td>Rory McIlroy — Favorite</td><td>Only player combining elite skill rank, full-season hot form, and real Birkdale pedigree.</td></tr>
+            <tr><td>2</td><td>Jon Rahm — Co-Favorite</td><td>Matches McIlroy's SG/round pace over a full season, no course history needed.</td></tr>
+            <tr><td>3</td><td>Tyrrell Hatton — Form Play</td><td>Highest raw SG/round in the field, even after correcting for small sample size.</td></tr>
+            <tr><td>4</td><td>Alex Noren — Longshot</td><td>Best course-history profile outside the top 3; accuracy-first game fits Birkdale's tendencies.</td></tr>
+          </tbody>
+        </table>
+        <div class="memo-body reveal">
+          <p class="memo-aside"><strong>Methodology:</strong> All rankings were produced by SQL queries joining the field, pga_stats, dpwt_stats, liv_stats, and birkdale_history tables in a custom-built SQLite database (open2026.db). Data sourced from DataGolf's field rankings, season Strokes Gained tables, and Course Insights pages. Analysis conducted as part of a portfolio project at the University of Southern California Marshall School of Business.</p>
+        </div>
+        <p class="memo-credit reveal">2026 Open Championship Statistical Favorites Memo · Data: DataGolf</p>
+      </section>
+
+      <hr class="section-divider reveal">
+
+      <!-- CONTACT (same as main page) -->
+      <section class="section contact-section" id="contact">
+        <img src="assets/logo.png" alt="Seymour Thomas logo" class="logo-img contact-logo reveal">
+        <div class="contact-info reveal">
+          <h2 class="section-title contact-title">Contact</h2>
+          <a href="https://www.linkedin.com/in/seymourthomas" target="_blank" rel="noopener" class="contact-row link-hover">
+            www.linkedin.com/in/seymourthomas
+            <svg class="contact-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM9 9h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V21h-4v-5.6c0-1.34-.02-3.06-1.87-3.06-1.87 0-2.16 1.46-2.16 2.96V21H9z"/></svg>
+          </a>
+          <a href="mailto:seymourt@usc.edu" class="contact-row link-hover">
+            seymourt@usc.edu
+            <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+          </a>
+        </div>
+      </section>
+
+    </main>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
