@@ -1,0 +1,705 @@
+/* ============ self-hosted fonts ============ */
+@font-face{
+  font-family:'Kaisei Tokumin';
+  src:url('assets/fonts/KaiseiTokumin-Regular.ttf') format('truetype');
+  font-weight:400;
+  font-style:normal;
+  font-display:swap;
+}
+@font-face{
+  font-family:'Kaisei Tokumin';
+  src:url('assets/fonts/KaiseiTokumin-Medium.ttf') format('truetype');
+  font-weight:500;
+  font-style:normal;
+  font-display:swap;
+}
+@font-face{
+  font-family:'Kaisei Tokumin';
+  src:url('assets/fonts/KaiseiTokumin-Bold.ttf') format('truetype');
+  font-weight:700;
+  font-style:normal;
+  font-display:swap;
+}
+@font-face{
+  font-family:'Kaisei Tokumin';
+  src:url('assets/fonts/KaiseiTokumin-ExtraBold.ttf') format('truetype');
+  font-weight:800;
+  font-style:normal;
+  font-display:swap;
+}
+
+/* ============ tokens ============ */
+:root{
+  --bg-outer:#0B0B0C;
+  --bg-card:#19191C;
+  --text-primary:#ECECEF;
+  --text-muted:#9A9AA3;
+  --accent:#8E7CF6;      /* purple/blue hover highlight */
+  --accent-soft:rgba(142,124,246,0.15);
+  --teal:#2DD4BF;
+  --dot-grey:#5B5B63;
+  --rule:rgba(255,255,255,0.14);
+  --radius-card:28px;
+  --font-display:'Kaisei Tokumin', serif;
+  --font-body:'Inter', sans-serif;
+}
+
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  background:var(--bg-outer);
+  color:var(--text-primary);
+  font-family:var(--font-body);
+  -webkit-font-smoothing:antialiased;
+}
+
+a{ color:inherit; text-decoration:none; }
+
+/* ============ page / card shell ============ */
+.page{
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  padding:28px 16px 60px;
+}
+.card{
+  position:relative;
+  width:100%;
+  max-width:1400px;
+  background:var(--bg-card);
+  border-radius:var(--radius-card);
+  overflow:hidden;
+  box-shadow:0 30px 80px rgba(0,0,0,0.45);
+}
+
+/* floating cloud particles — small, transparent, confined to the intro
+   hero's right-hand side so they never cross into the text column.
+   Each drifts in, lingers, fades out, then repeats on a loop; staggered
+   delays/durations keep them from moving in sync. */
+.cloud-particles{
+  position:absolute;
+  inset:0;
+  overflow:hidden;
+  pointer-events:none;
+  z-index:0;
+}
+.cloud-particle{
+  position:absolute;
+  width:56px;
+  opacity:0;
+  animation:cloud-float 12s ease-in-out infinite;
+}
+.cp-1{ top:6%;  left:64%; width:38px; animation-duration:11s; animation-delay:0s;   --peak:0.20; --dx:16px;  --dy:-22px; }
+.cp-2{ top:16%; left:84%; width:60px; animation-duration:14s; animation-delay:2.5s; --peak:0.16; --dx:-14px; --dy:18px;  }
+.cp-3{ top:34%; left:70%; width:30px; animation-duration:9s;  animation-delay:5s;   --peak:0.24; --dx:20px;  --dy:14px;  }
+.cp-4{ top:48%; left:90%; width:50px; animation-duration:13s; animation-delay:1.5s; --peak:0.15; --dx:-18px; --dy:-16px; }
+.cp-5{ top:62%; left:66%; width:42px; animation-duration:10s; animation-delay:7s;   --peak:0.20; --dx:14px;  --dy:20px;  }
+.cp-6{ top:76%; left:82%; width:34px; animation-duration:12.5s; animation-delay:4s; --peak:0.18; --dx:-16px; --dy:-14px; }
+.cp-7{ top:88%; left:72%; width:46px; animation-duration:15s; animation-delay:9s;   --peak:0.14; --dx:12px;  --dy:-18px; }
+
+/* homepage intro only: make the same drifting clouds noticeably more
+   visible than the subtler version used on memo pages, per feedback
+   that they "aren't highlighted enough" — scoped to #intro so the
+   memo pages' clouds stay exactly as they were. */
+#intro .cp-1{ --peak:0.34; width:46px; }
+#intro .cp-2{ --peak:0.30; width:74px; }
+#intro .cp-3{ --peak:0.38; width:38px; }
+#intro .cp-4{ --peak:0.28; width:62px; }
+#intro .cp-5{ --peak:0.34; width:52px; }
+#intro .cp-6{ --peak:0.32; width:44px; }
+#intro .cp-7{ --peak:0.26; width:56px; }
+/* cp-1 and cp-3 originally drifted through the upper-middle area where the
+   dot-spiral now lives — nudged down here (homepage only, base position
+   for the memo pages is untouched) so no cloud ever fades in near/around
+   the spiral and overlaps it. */
+#intro .cp-1{ top:46%; }
+#intro .cp-3{ top:42%; }
+
+@keyframes cloud-float{
+  0%{ opacity:0; transform:translate(0,0) scale(0.92); }
+  15%{ opacity:var(--peak,0.2); }
+  50%{ transform:translate(var(--dx,14px), var(--dy,-18px)) scale(1); }
+  85%{ opacity:var(--peak,0.2); }
+  100%{ opacity:0; transform:translate(calc(var(--dx,14px) * 1.7), calc(var(--dy,-18px) * 1.7)) scale(1.04); }
+}
+
+/* new signature dot-spiral graphic — homepage intro only. Wrapper handles
+   the one-time fade-in timed to arrive alongside the intro text; the SVG
+   inside spins continuously and slowly on its own so the two animations
+   never fight over the transform property. Positioned clear of the text
+   column and given pointer-events:none so it can never sit "over" or
+   interrupt reading, per feedback. Pinned to a fixed top offset (rather
+   than a %) so it always sits just below the logo/nav regardless of how
+   tall the vertically-centered hero text block ends up being; left uses
+   max() so it never creeps left over the text column on narrower desktop
+   widths while still scaling rightward on wide screens. */
+.dot-spiral-wrap{
+  position:absolute;
+  top:26px;
+  left:max(700px, 56%);
+  width:230px;
+  height:230px;
+  opacity:0;
+  pointer-events:none;
+  z-index:0;
+  animation:dot-spiral-fadein 1.8s ease-out 1s forwards;
+}
+.dot-spiral{
+  width:100%;
+  height:100%;
+  display:block;
+  transform-origin:50% 50%;
+  animation:dot-spiral-spin 110s linear infinite;
+}
+@keyframes dot-spiral-fadein{
+  from{ opacity:0; transform:scale(0.92); }
+  to{ opacity:0.85; transform:scale(1); }
+}
+@keyframes dot-spiral-spin{
+  from{ transform:rotate(0deg); }
+  to{ transform:rotate(360deg); }
+}
+@media (max-width:900px){
+  /* not enough width left of the text column to place it well below
+     this point — hidden rather than cramped, same spirit as the rest
+     of the mobile experience you said already looks great */
+  .dot-spiral-wrap{ display:none; }
+}
+
+/* ============ topbar (sticky) ============ */
+.topbar{
+  position:sticky;
+  top:0;
+  z-index:20;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:26px 40px;
+  background:linear-gradient(to bottom, var(--bg-card) 78%, rgba(25,25,28,0));
+}
+.logo-link{ display:block; line-height:0; }
+.logo-img{
+  height:58px;
+  width:auto;
+  transition:transform 0.2s ease, filter 0.2s ease;
+}
+.logo-link:hover .logo-img{
+  transform:scale(1.05);
+  filter:drop-shadow(0 0 8px var(--accent-soft));
+}
+
+.nav{
+  display:flex;
+  gap:20px;
+}
+.nav-link{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  font-size:0.98rem;
+  font-weight:500;
+  color:var(--text-primary);
+  transition:color 0.2s ease;
+}
+.nav-icon{
+  width:18px;
+  height:18px;
+  flex-shrink:0;
+  transition:color 0.2s ease, transform 0.2s ease;
+}
+.nav-link:hover, .nav-link:focus-visible{
+  color:var(--accent);
+}
+.nav-link:hover .nav-icon, .nav-link:focus-visible .nav-icon{
+  transform:translateY(-1px);
+}
+
+.topbar-dots{
+  position:absolute;
+  right:40px;
+  bottom:0px;
+  transform:translateY(50%);
+  color:var(--dot-grey);
+  font-size:0.7rem;
+  letter-spacing:3px;
+  display:none;
+}
+@media (min-width:640px){
+  .topbar-dots{ display:block; }
+}
+
+/* ============ sections (base spacing, no cross-cancelling) ============ */
+main{
+  position:relative;
+  z-index:1;
+}
+.section{
+  padding:70px 40px;
+  position:relative;
+  scroll-margin-top:110px;
+}
+.dot-marker{
+  font-family:var(--font-body);
+  font-size:0.78rem;
+  letter-spacing:2.5px;
+  text-transform:uppercase;
+  color:var(--dot-grey);
+  margin:0 0 14px;
+}
+.eyebrow{
+  font-family:var(--font-display);
+  font-weight:500;
+  font-style:normal;
+  font-size:1.15rem;
+  color:var(--text-muted);
+  letter-spacing:0.3px;
+  margin:0 0 14px;
+}
+.section-title{
+  font-family:var(--font-display);
+  font-weight:800;
+  font-size:2.2rem;
+  margin:0 0 34px;
+}
+
+.section-divider{
+  border:none;
+  height:1px;
+  margin:0 40px;
+  background:rgba(255,255,255,0.18);
+}
+
+/* per-word load-in animation — plain CSS keyframes, no JS text
+   manipulation involved, so spacing between words can never break */
+.word{
+  display:inline-block;
+  opacity:0;
+  animation:word-in 0.6s ease forwards;
+}
+@keyframes word-in{
+  from{ opacity:0; transform:translateY(12px); }
+  to{ opacity:1; transform:translateY(0); }
+}
+
+/* slower, smoother variant — used only on the homepage intro-bio line
+   per feedback that the default fade felt too quick. Left as an add-on
+   modifier (rather than changing .word itself) so the memo pages, which
+   reuse .word for their titles, keep their original faster timing. */
+.word-slow{
+  animation-duration:1.3s;
+  animation-timing-function:cubic-bezier(.22,.61,.36,1);
+}
+
+/* ============ intro (hero) ============ */
+.intro{
+  position:relative;
+  overflow:hidden;
+  min-height:calc(100vh - 110px);
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  padding-top:20px;
+  padding-bottom:60px;
+}
+.intro-content{
+  position:relative;
+  z-index:1;
+}
+.intro .eyebrow{
+  font-size:1.5rem;
+}
+.intro-bio{
+  font-size:2.4rem;
+  line-height:1.4;
+  max-width:640px;
+  color:var(--text-primary);
+  margin:0;
+}
+.scroll-cue{
+  position:relative;
+  z-index:1;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  margin-top:48px;
+  color:var(--text-muted);
+  font-size:0.8rem;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  animation:scroll-cue-bob 2.4s ease-in-out infinite;
+}
+.scroll-cue svg{ width:16px; height:16px; }
+@keyframes scroll-cue-bob{
+  0%,100%{ transform:translateY(0); opacity:0.7; }
+  50%{ transform:translateY(6px); opacity:1; }
+}
+
+/* ============ involvements ============ */
+.involvement{
+  display:flex;
+  align-items:center;
+  gap:20px;
+  margin-bottom:34px;
+}
+.involvement-alt{
+  justify-content:flex-end;
+  text-align:right;
+}
+.involvement-text{
+  display:flex;
+  flex-direction:column;
+  gap:5px;
+}
+.involvement-org{
+  font-size:1.18rem;
+  font-weight:600;
+}
+.involvement-date{
+  font-size:0.9rem;
+  color:var(--text-muted);
+}
+.badge{
+  flex-shrink:0;
+  width:44px;
+  height:44px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  background:#fff;
+  transition:transform 0.2s ease, box-shadow 0.2s ease;
+}
+.badge:hover{
+  transform:scale(1.08);
+  box-shadow:0 0 0 4px var(--accent-soft);
+}
+.badge-img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+/* ============ works ============ */
+.work{
+  margin-bottom:44px;
+}
+.work:last-child{
+  margin-bottom:0;
+}
+.work-alt{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-end;
+  text-align:right;
+}
+.work-title{
+  display:block;
+  text-decoration:none;
+  font-size:1.25rem;
+  line-height:1.5;
+  max-width:560px;
+  margin:0 0 10px;
+}
+.work-date{
+  display:block;
+  font-size:0.9rem;
+  color:var(--text-muted);
+  margin-bottom:16px;
+}
+.more-link{
+  display:inline-block;
+  font-size:1rem;
+  font-weight:600;
+  color:var(--text-primary);
+}
+
+@media (max-width:680px){
+  .work-alt{
+    align-items:flex-start;
+    text-align:left;
+  }
+}
+
+/* ============ shared hover-highlight for meaningful links ============ */
+.link-hover{ transition:color 0.2s ease, text-shadow 0.2s ease; }
+.link-hover:hover, .link-hover:focus-visible{
+  color:var(--accent);
+}
+
+/* ============ contact ============ */
+.contact-section{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:24px;
+  flex-wrap:wrap;
+  padding-top:36px;
+  padding-bottom:60px;
+}
+.contact-logo{
+  height:70px;
+}
+.contact-info{
+  text-align:right;
+  margin-left:auto;
+}
+.contact-title{
+  margin-bottom:14px;
+}
+.contact-row{
+  display:flex;
+  align-items:center;
+  justify-content:flex-end;
+  gap:8px;
+  font-size:0.98rem;
+  margin-bottom:10px;
+}
+.contact-icon{
+  width:18px;
+  height:18px;
+}
+
+/* ============ scroll reveal ============ */
+/* Visible by default — this can NEVER get stuck hidden, even if JS is
+   slow, blocked, or fails outright. JS (below) opts specific elements
+   INTO a temporary hidden state only when they're below the fold, then
+   un-hides them on scroll for a fade-up effect. No JS running at all
+   just means everything is simply visible immediately, which is a
+   perfectly fine degraded experience — never a blank page. */
+.reveal{
+  transition:opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.reveal-pending{
+  opacity:0;
+  transform:translateY(28px);
+}
+
+/* ============ responsive ============ */
+@media (max-width:680px){
+  .topbar{ padding:20px 22px; }
+  .logo-img{ height:44px; }
+  .nav{ gap:18px; }
+  .nav-link span{ display:none; }
+  .nav-icon{ width:21px; height:21px; }
+  .section{ padding:40px 22px; }
+  .section-divider{ margin:0 22px; }
+  .intro{ min-height:calc(100vh - 84px); padding-bottom:40px; }
+  .intro .eyebrow{ font-size:1.15rem; }
+  .intro-bio{ font-size:1.5rem; max-width:100%; }
+  .scroll-cue{ margin-top:32px; }
+  .involvement, .involvement-alt{
+    flex-direction:column;
+    align-items:flex-start;
+    text-align:left;
+  }
+  .contact-section{
+    flex-direction:column;
+    align-items:flex-start;
+  }
+  .contact-info{ text-align:left; margin-left:0; }
+  .contact-row{ justify-content:flex-start; }
+  /* fewer, smaller, more transparent particles — a narrow screen has much
+     less safe empty space, so keep this restrained rather than cluttered */
+  .cloud-particle{ width:26px !important; }
+  .cp-2, .cp-4, .cp-6{ display:none; }
+  .cp-1{ left:70%; }
+  .cp-3{ left:76%; }
+  .cp-5{ left:68%; }
+  .cp-7{ left:74%; }
+}
+
+/* ============ memo page ============ */
+.breadcrumb{
+  font-size:0.85rem;
+  color:var(--text-muted);
+  margin-bottom:18px;
+}
+.breadcrumb a{
+  font-weight:600;
+  color:var(--text-muted);
+}
+.breadcrumb a:hover{ color:var(--accent); }
+.breadcrumb .sep{ margin:0 8px; opacity:0.6; }
+.breadcrumb .current{ color:var(--text-primary); }
+
+.memo-hero{ padding-top:16px; padding-bottom:20px; }
+.memo-title{
+  font-family:var(--font-display);
+  font-weight:800;
+  font-size:2.5rem;
+  line-height:1.15;
+  margin:0 0 14px;
+  max-width:760px;
+}
+.memo-byline{
+  font-size:1.05rem;
+  color:var(--text-primary);
+  margin:0 0 22px;
+}
+.memo-download{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  font-size:0.92rem;
+  color:var(--text-muted);
+}
+.memo-download svg{ width:17px; height:17px; }
+.memo-download:hover{ color:var(--accent); }
+
+.memo-section-heading{
+  font-family:var(--font-display);
+  font-weight:800;
+  font-size:1.6rem;
+  margin:0 0 18px;
+}
+.memo-body p{
+  font-size:1.02rem;
+  line-height:1.7;
+  color:#D8D6DC;
+  max-width:760px;
+  margin:0 0 18px;
+}
+.memo-body p:last-child{ margin-bottom:0; }
+.memo-aside{
+  font-size:0.92rem !important;
+  color:var(--text-muted) !important;
+  font-style:italic;
+}
+
+/* data tables — rendered as light "report" cards against the dark page */
+.memo-table-wrap{
+  overflow-x:auto;
+  border-radius:10px;
+  margin:20px 0 26px;
+  box-shadow:0 12px 28px rgba(0,0,0,0.35);
+}
+.memo-table{
+  width:100%;
+  border-collapse:collapse;
+  background:#fff;
+  font-size:0.88rem;
+  min-width:560px;
+}
+.memo-table th{
+  background:#0F1F3D;
+  color:#E8B84B;
+  font-family:var(--font-body);
+  font-weight:700;
+  text-align:left;
+  padding:10px 14px;
+  white-space:nowrap;
+}
+.memo-table td{
+  padding:9px 14px;
+  color:#1a1a1a;
+  border-bottom:1px solid #eee;
+}
+.memo-table tr:last-child td{ border-bottom:none; }
+.memo-table td:first-child, .memo-table th:first-child{ font-weight:600; }
+.row-pink td{ background:#FBD9DD; }
+.row-green td{ background:#DCEFD9; }
+.row-lavender td{ background:#E3E7F7; }
+.row-yellow td{ background:#FBF0C7; }
+.memo-table tr:nth-child(even):not(.row-pink):not(.row-green):not(.row-lavender):not(.row-yellow) td{
+  background:#F4F4F8;
+}
+
+.memo-callout{
+  background:#221F2C;
+  border-left:3px solid var(--accent);
+  padding:14px 18px;
+  border-radius:6px;
+  font-size:0.95rem;
+  color:#D8D6DC;
+  max-width:760px;
+  margin:0 0 26px;
+}
+.memo-callout strong{ color:var(--text-primary); }
+
+/* recommendation blocks */
+.recommendation{ margin-bottom:8px; }
+.recommendation h3{
+  font-family:var(--font-display);
+  font-weight:700;
+  font-size:1.3rem;
+  margin:0 0 16px;
+}
+.recommendation figure{
+  margin:0 0 18px;
+  max-width:480px;
+}
+.recommendation img{
+  width:100%;
+  height:auto;
+  border-radius:10px;
+  display:block;
+}
+.recommendation figcaption{
+  font-size:0.82rem;
+  font-style:italic;
+  color:var(--text-muted);
+  margin-top:8px;
+}
+
+/* conclusion action table */
+.conclusion-table{
+  width:100%;
+  border-collapse:separate;
+  border-spacing:0 8px;
+  margin:20px 0 26px;
+}
+.conclusion-table td{
+  background:#fff;
+  color:#1a1a1a;
+  padding:14px 18px;
+  font-size:0.92rem;
+  vertical-align:top;
+}
+.conclusion-table tr td:first-child{
+  background:#0F1F3D;
+  color:#E8B84B;
+  font-weight:800;
+  font-size:1.1rem;
+  text-align:center;
+  width:44px;
+  border-radius:8px 0 0 8px;
+}
+.conclusion-table tr td:nth-child(2){
+  font-weight:700;
+  width:220px;
+}
+.conclusion-table tr td:last-child{
+  border-radius:0 8px 8px 0;
+  color:#3d3d3d;
+}
+
+.memo-credit{
+  text-align:center;
+  font-size:0.82rem;
+  color:var(--text-muted);
+  margin-top:10px;
+}
+
+@media (max-width:680px){
+  .memo-title{ font-size:1.8rem; }
+  .memo-table{ font-size:0.8rem; min-width:500px; }
+  .conclusion-table tr td:first-child{ width:36px; }
+  .conclusion-table tr td:nth-child(2){ width:auto; }
+  .conclusion-table td{ display:block; width:auto !important; border-radius:0 !important; }
+  .conclusion-table tr{ display:block; background:#fff; border-radius:8px; overflow:hidden; }
+}
+
+
+a:focus-visible, .badge:focus-visible{
+  outline:2px solid var(--accent);
+  outline-offset:3px;
+}
+
+@media (prefers-reduced-motion: reduce){
+  *{ animation:none !important; transition:none !important; }
+  .reveal.reveal-pending{ opacity:1; transform:none; }
+  .word{ opacity:1 !important; transform:none !important; }
+  html{ scroll-behavior:auto; }
+}
